@@ -1,0 +1,1535 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="SS2Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Amenities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IconName" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Areas">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Attractions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AreaID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="Address" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BookingDetails">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="BookingID" Type="bigint" Nullable="false" />
+          <Property Name="ItemPriceID" Type="bigint" Nullable="false" />
+          <Property Name="isRefund" Type="bit" Nullable="false" />
+          <Property Name="RefundDate" Type="date" />
+          <Property Name="RefundCancellationPoliciyID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="BookingDate" Type="datetime" Nullable="false" />
+          <Property Name="CouponID" Type="bigint" />
+          <Property Name="TransactionID" Type="bigint" />
+          <Property Name="AmountPaid" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="CancellationPolicies">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Commission" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CancellationRefundFees">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CancellationPolicyID" Type="bigint" Nullable="false" />
+          <Property Name="DaysLeft" Type="int" Nullable="false" />
+          <Property Name="PenaltyPercentage" Type="decimal" Precision="5" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Coupons">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CouponCode" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DiscountPercent" Type="decimal" Precision="4" Scale="1" Nullable="false" />
+          <Property Name="MaximimDiscountAmount" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DimDates">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Quarter" Type="int" Nullable="false" />
+          <Property Name="Month" Type="int" Nullable="false" />
+          <Property Name="MonthName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="DayOfMonth" Type="int" Nullable="false" />
+          <Property Name="DayOfWeek" Type="int" Nullable="false" />
+          <Property Name="DayName" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="isHoliday" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemAmenities">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemID" Type="bigint" Nullable="false" />
+          <Property Name="AmenityID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemAttractions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemID" Type="bigint" Nullable="false" />
+          <Property Name="AttractionID" Type="bigint" Nullable="false" />
+          <Property Name="Distance" Type="decimal" Precision="5" Scale="1" />
+          <Property Name="DurationOnFoot" Type="bigint" />
+          <Property Name="DurationByCar" Type="bigint" />
+        </EntityType>
+        <EntityType Name="ItemPictures">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemID" Type="bigint" Nullable="false" />
+          <Property Name="PictureFileName" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemPrices">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ItemID" Type="bigint" Nullable="false" />
+          <Property Name="Date" Type="date" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CancellationPolicyID" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="ItemTypeID" Type="bigint" Nullable="false" />
+          <Property Name="AreaID" Type="bigint" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Capacity" Type="int" Nullable="false" />
+          <Property Name="NumberOfBeds" Type="int" Nullable="false" />
+          <Property Name="NumberOfBedrooms" Type="int" Nullable="false" />
+          <Property Name="NumberOfBathrooms" Type="int" Nullable="false" />
+          <Property Name="ExactAddress" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="ApproximateAddress" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="HostRules" Type="nvarchar" MaxLength="2000" Nullable="false" />
+          <Property Name="MinimumNights" Type="int" Nullable="false" />
+          <Property Name="MaximumNights" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemScores">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="ItemID" Type="bigint" Nullable="false" />
+          <Property Name="ScoreID" Type="bigint" Nullable="false" />
+          <Property Name="Value" Type="bigint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Scores">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transactions">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserID" Type="bigint" Nullable="false" />
+          <Property Name="TransactionTypeID" Type="bigint" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="date" Nullable="false" />
+          <Property Name="GatewayReturnID" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TransactionTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="UserTypeID" Type="bigint" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Gender" Type="bit" Nullable="false" />
+          <Property Name="BirthDate" Type="date" Nullable="false" />
+          <Property Name="FamilyCount" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserTypes">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Attractions_Areas">
+          <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+          <End Role="Attractions" Type="Self.Attractions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attractions">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetails_Bookings">
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetails_PlacePrices">
+          <End Role="ItemPrices" Type="Self.ItemPrices" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemPrices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="ItemPriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Coupons">
+          <End Role="Coupons" Type="Self.Coupons" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coupons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="CouponID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Transactions">
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transactions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CancellationRefundFees_CancellationPolicies">
+          <End Role="CancellationPolicies" Type="Self.CancellationPolicies" Multiplicity="1" />
+          <End Role="CancellationRefundFees" Type="Self.CancellationRefundFees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancellationPolicies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CancellationRefundFees">
+              <PropertyRef Name="CancellationPolicyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Areas">
+          <End Role="Areas" Type="Self.Areas" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Items">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Scores">
+          <End Role="Scores" Type="Self.Scores" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="ScoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceAmenities_Amenities">
+          <End Role="Amenities" Type="Self.Amenities" Multiplicity="1" />
+          <End Role="ItemAmenities" Type="Self.ItemAmenities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amenities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAmenities">
+              <PropertyRef Name="AmenityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceAmenities_Places">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemAmenities" Type="Self.ItemAmenities" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAmenities">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePictures_Places">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemPictures" Type="Self.ItemPictures" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPictures">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePrices_CancellationPolicies">
+          <End Role="CancellationPolicies" Type="Self.CancellationPolicies" Multiplicity="1" />
+          <End Role="ItemPrices" Type="Self.ItemPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancellationPolicies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPrices">
+              <PropertyRef Name="CancellationPolicyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePrices_Places">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemPrices" Type="Self.ItemPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPrices">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Places_PlaceTypes">
+          <End Role="ItemTypes" Type="Self.ItemTypes" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="ItemTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Places_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Items" Type="Self.Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceSightseeingLocations_Places">
+          <End Role="Items" Type="Self.Items" Multiplicity="1" />
+          <End Role="ItemAttractions" Type="Self.ItemAttractions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAttractions">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceSightseeingLocations_SightseeingLocations">
+          <End Role="Attractions" Type="Self.Attractions" Multiplicity="1" />
+          <End Role="ItemAttractions" Type="Self.ItemAttractions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attractions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAttractions">
+              <PropertyRef Name="AttractionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_TransactionTypes">
+          <End Role="TransactionTypes" Type="Self.TransactionTypes" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="TransactionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserTypes">
+          <End Role="UserTypes" Type="Self.UserTypes" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SS2ModelStoreContainer">
+          <EntitySet Name="Amenities" EntityType="Self.Amenities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Areas" EntityType="Self.Areas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Attractions" EntityType="Self.Attractions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CancellationPolicies" EntityType="Self.CancellationPolicies" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CancellationRefundFees" EntityType="Self.CancellationRefundFees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Coupons" EntityType="Self.Coupons" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DimDates" EntityType="Self.DimDates" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemAmenities" EntityType="Self.ItemAmenities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemAttractions" EntityType="Self.ItemAttractions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemPictures" EntityType="Self.ItemPictures" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemPrices" EntityType="Self.ItemPrices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemScores" EntityType="Self.ItemScores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Scores" EntityType="Self.Scores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transactions" EntityType="Self.Transactions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TransactionTypes" EntityType="Self.TransactionTypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserTypes" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Attractions_Areas" Association="Self.FK_Attractions_Areas">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Attractions" EntitySet="Attractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetails_Bookings" Association="Self.FK_BookingDetails_Bookings">
+            <End Role="Bookings" EntitySet="Bookings" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetails_PlacePrices" Association="Self.FK_BookingDetails_PlacePrices">
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Coupons" Association="Self.FK_Bookings_Coupons">
+            <End Role="Coupons" EntitySet="Coupons" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Transactions" Association="Self.FK_Bookings_Transactions">
+            <End Role="Transactions" EntitySet="Transactions" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Users" Association="Self.FK_Bookings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CancellationRefundFees_CancellationPolicies" Association="Self.FK_CancellationRefundFees_CancellationPolicies">
+            <End Role="CancellationPolicies" EntitySet="CancellationPolicies" />
+            <End Role="CancellationRefundFees" EntitySet="CancellationRefundFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Areas" Association="Self.FK_Items_Areas">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Items" Association="Self.FK_ItemScores_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Scores" Association="Self.FK_ItemScores_Scores">
+            <End Role="Scores" EntitySet="Scores" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Users" Association="Self.FK_ItemScores_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceAmenities_Amenities" Association="Self.FK_PlaceAmenities_Amenities">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="ItemAmenities" EntitySet="ItemAmenities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceAmenities_Places" Association="Self.FK_PlaceAmenities_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemAmenities" EntitySet="ItemAmenities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePictures_Places" Association="Self.FK_PlacePictures_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPictures" EntitySet="ItemPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePrices_CancellationPolicies" Association="Self.FK_PlacePrices_CancellationPolicies">
+            <End Role="CancellationPolicies" EntitySet="CancellationPolicies" />
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePrices_Places" Association="Self.FK_PlacePrices_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Places_PlaceTypes" Association="Self.FK_Places_PlaceTypes">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Places_Users" Association="Self.FK_Places_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceSightseeingLocations_Places" Association="Self.FK_PlaceSightseeingLocations_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemAttractions" EntitySet="ItemAttractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceSightseeingLocations_SightseeingLocations" Association="Self.FK_PlaceSightseeingLocations_SightseeingLocations">
+            <End Role="Attractions" EntitySet="Attractions" />
+            <End Role="ItemAttractions" EntitySet="ItemAttractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_TransactionTypes" Association="Self.FK_Transactions_TransactionTypes">
+            <End Role="TransactionTypes" EntitySet="TransactionTypes" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserTypes" Association="Self.FK_Users_UserTypes">
+            <End Role="UserTypes" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SS2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Amenity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IconName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ItemAmenities" Relationship="Self.FK_PlaceAmenities_Amenities" FromRole="Amenities" ToRole="ItemAmenities" />
+        </EntityType>
+        <EntityType Name="Area">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Attractions" Relationship="Self.FK_Attractions_Areas" FromRole="Areas" ToRole="Attractions" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Items_Areas" FromRole="Areas" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Attraction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="AreaID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_Attractions_Areas" FromRole="Attractions" ToRole="Areas" />
+          <NavigationProperty Name="ItemAttractions" Relationship="Self.FK_PlaceSightseeingLocations_SightseeingLocations" FromRole="Attractions" ToRole="ItemAttractions" />
+        </EntityType>
+        <EntityType Name="BookingDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="BookingID" Type="Int64" Nullable="false" />
+          <Property Name="ItemPriceID" Type="Int64" Nullable="false" />
+          <Property Name="isRefund" Type="Boolean" Nullable="false" />
+          <Property Name="RefundDate" Type="DateTime" Precision="0" />
+          <Property Name="RefundCancellationPoliciyID" Type="Int64" />
+          <NavigationProperty Name="Booking" Relationship="Self.FK_BookingDetails_Bookings" FromRole="BookingDetails" ToRole="Bookings" />
+          <NavigationProperty Name="ItemPrice" Relationship="Self.FK_BookingDetails_PlacePrices" FromRole="BookingDetails" ToRole="ItemPrices" />
+        </EntityType>
+        <EntityType Name="Booking">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="BookingDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CouponID" Type="Int64" />
+          <Property Name="TransactionID" Type="Int64" />
+          <Property Name="AmountPaid" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetails_Bookings" FromRole="Bookings" ToRole="BookingDetails" />
+          <NavigationProperty Name="Coupon" Relationship="Self.FK_Bookings_Coupons" FromRole="Bookings" ToRole="Coupons" />
+          <NavigationProperty Name="Transaction" Relationship="Self.FK_Bookings_Transactions" FromRole="Bookings" ToRole="Transactions" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Bookings_Users" FromRole="Bookings" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CancellationPolicy">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Commission" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <NavigationProperty Name="CancellationRefundFees" Relationship="Self.FK_CancellationRefundFees_CancellationPolicies" FromRole="CancellationPolicies" ToRole="CancellationRefundFees" />
+          <NavigationProperty Name="ItemPrices" Relationship="Self.FK_PlacePrices_CancellationPolicies" FromRole="CancellationPolicies" ToRole="ItemPrices" />
+        </EntityType>
+        <EntityType Name="CancellationRefundFee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="CancellationPolicyID" Type="Int64" Nullable="false" />
+          <Property Name="DaysLeft" Type="Int32" Nullable="false" />
+          <Property Name="PenaltyPercentage" Type="Decimal" Precision="5" Scale="2" Nullable="false" />
+          <NavigationProperty Name="CancellationPolicy" Relationship="Self.FK_CancellationRefundFees_CancellationPolicies" FromRole="CancellationRefundFees" ToRole="CancellationPolicies" />
+        </EntityType>
+        <EntityType Name="Coupon">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="CouponCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DiscountPercent" Type="Decimal" Precision="4" Scale="1" Nullable="false" />
+          <Property Name="MaximimDiscountAmount" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Bookings_Coupons" FromRole="Coupons" ToRole="Bookings" />
+        </EntityType>
+        <EntityType Name="DimDate">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Year" Type="Int32" Nullable="false" />
+          <Property Name="Quarter" Type="Int32" Nullable="false" />
+          <Property Name="Month" Type="Int32" Nullable="false" />
+          <Property Name="MonthName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DayOfMonth" Type="Int32" Nullable="false" />
+          <Property Name="DayOfWeek" Type="Int32" Nullable="false" />
+          <Property Name="DayName" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="isHoliday" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ItemAmenity">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemID" Type="Int64" Nullable="false" />
+          <Property Name="AmenityID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Amenity" Relationship="Self.FK_PlaceAmenities_Amenities" FromRole="ItemAmenities" ToRole="Amenities" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_PlaceAmenities_Places" FromRole="ItemAmenities" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ItemAttraction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemID" Type="Int64" Nullable="false" />
+          <Property Name="AttractionID" Type="Int64" Nullable="false" />
+          <Property Name="Distance" Type="Decimal" Precision="5" Scale="1" />
+          <Property Name="DurationOnFoot" Type="Int64" />
+          <Property Name="DurationByCar" Type="Int64" />
+          <NavigationProperty Name="Attraction" Relationship="Self.FK_PlaceSightseeingLocations_SightseeingLocations" FromRole="ItemAttractions" ToRole="Attractions" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_PlaceSightseeingLocations_Places" FromRole="ItemAttractions" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ItemPicture">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemID" Type="Int64" Nullable="false" />
+          <Property Name="PictureFileName" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_PlacePictures_Places" FromRole="ItemPictures" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="ItemPrice">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="ItemID" Type="Int64" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="CancellationPolicyID" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="BookingDetails" Relationship="Self.FK_BookingDetails_PlacePrices" FromRole="ItemPrices" ToRole="BookingDetails" />
+          <NavigationProperty Name="CancellationPolicy" Relationship="Self.FK_PlacePrices_CancellationPolicies" FromRole="ItemPrices" ToRole="CancellationPolicies" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_PlacePrices_Places" FromRole="ItemPrices" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Item">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="ItemTypeID" Type="Int64" Nullable="false" />
+          <Property Name="AreaID" Type="Int64" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Capacity" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfBeds" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfBedrooms" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfBathrooms" Type="Int32" Nullable="false" />
+          <Property Name="ExactAddress" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ApproximateAddress" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="HostRules" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="MinimumNights" Type="Int32" Nullable="false" />
+          <Property Name="MaximumNights" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Area" Relationship="Self.FK_Items_Areas" FromRole="Items" ToRole="Areas" />
+          <NavigationProperty Name="ItemAmenities" Relationship="Self.FK_PlaceAmenities_Places" FromRole="Items" ToRole="ItemAmenities" />
+          <NavigationProperty Name="ItemAttractions" Relationship="Self.FK_PlaceSightseeingLocations_Places" FromRole="Items" ToRole="ItemAttractions" />
+          <NavigationProperty Name="ItemPictures" Relationship="Self.FK_PlacePictures_Places" FromRole="Items" ToRole="ItemPictures" />
+          <NavigationProperty Name="ItemPrices" Relationship="Self.FK_PlacePrices_Places" FromRole="Items" ToRole="ItemPrices" />
+          <NavigationProperty Name="ItemScores" Relationship="Self.FK_ItemScores_Items" FromRole="Items" ToRole="ItemScores" />
+          <NavigationProperty Name="ItemType" Relationship="Self.FK_Places_PlaceTypes" FromRole="Items" ToRole="ItemTypes" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Places_Users" FromRole="Items" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ItemScore">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="ItemID" Type="Int64" Nullable="false" />
+          <Property Name="ScoreID" Type="Int64" Nullable="false" />
+          <Property Name="Value" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Item" Relationship="Self.FK_ItemScores_Items" FromRole="ItemScores" ToRole="Items" />
+          <NavigationProperty Name="Score" Relationship="Self.FK_ItemScores_Scores" FromRole="ItemScores" ToRole="Scores" />
+          <NavigationProperty Name="User" Relationship="Self.FK_ItemScores_Users" FromRole="ItemScores" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ItemType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Places_PlaceTypes" FromRole="ItemTypes" ToRole="Items" />
+        </EntityType>
+        <EntityType Name="Score">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ItemScores" Relationship="Self.FK_ItemScores_Scores" FromRole="Scores" ToRole="ItemScores" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserID" Type="Int64" Nullable="false" />
+          <Property Name="TransactionTypeID" Type="Int64" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <Property Name="TransactionDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="GatewayReturnID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Bookings_Transactions" FromRole="Transactions" ToRole="Bookings" />
+          <NavigationProperty Name="TransactionType" Relationship="Self.FK_Transactions_TransactionTypes" FromRole="Transactions" ToRole="TransactionTypes" />
+        </EntityType>
+        <EntityType Name="TransactionType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Transactions" Relationship="Self.FK_Transactions_TransactionTypes" FromRole="TransactionTypes" ToRole="Transactions" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="UserTypeID" Type="Int64" Nullable="false" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FullName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Gender" Type="Boolean" Nullable="false" />
+          <Property Name="BirthDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="FamilyCount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK_Bookings_Users" FromRole="Users" ToRole="Bookings" />
+          <NavigationProperty Name="Items" Relationship="Self.FK_Places_Users" FromRole="Users" ToRole="Items" />
+          <NavigationProperty Name="ItemScores" Relationship="Self.FK_ItemScores_Users" FromRole="Users" ToRole="ItemScores" />
+          <NavigationProperty Name="UserType" Relationship="Self.FK_Users_UserTypes" FromRole="Users" ToRole="UserTypes" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GUID" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_Users_UserTypes" FromRole="UserTypes" ToRole="Users" />
+        </EntityType>
+        <Association Name="FK_PlaceAmenities_Amenities">
+          <End Role="Amenities" Type="Self.Amenity" Multiplicity="1" />
+          <End Role="ItemAmenities" Type="Self.ItemAmenity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Amenities">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAmenities">
+              <PropertyRef Name="AmenityID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Attractions_Areas">
+          <End Role="Areas" Type="Self.Area" Multiplicity="1" />
+          <End Role="Attractions" Type="Self.Attraction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Attractions">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Items_Areas">
+          <End Role="Areas" Type="Self.Area" Multiplicity="1" />
+          <End Role="Items" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Areas">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="AreaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceSightseeingLocations_SightseeingLocations">
+          <End Role="Attractions" Type="Self.Attraction" Multiplicity="1" />
+          <End Role="ItemAttractions" Type="Self.ItemAttraction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Attractions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAttractions">
+              <PropertyRef Name="AttractionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetails_Bookings">
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bookings">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="BookingID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BookingDetails_PlacePrices">
+          <End Role="ItemPrices" Type="Self.ItemPrice" Multiplicity="1" />
+          <End Role="BookingDetails" Type="Self.BookingDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemPrices">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="BookingDetails">
+              <PropertyRef Name="ItemPriceID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Coupons">
+          <End Role="Coupons" Type="Self.Coupon" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Coupons">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="CouponID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Transactions">
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="0..1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transactions">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bookings_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Booking" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CancellationRefundFees_CancellationPolicies">
+          <End Role="CancellationPolicies" Type="Self.CancellationPolicy" Multiplicity="1" />
+          <End Role="CancellationRefundFees" Type="Self.CancellationRefundFee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancellationPolicies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="CancellationRefundFees">
+              <PropertyRef Name="CancellationPolicyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePrices_CancellationPolicies">
+          <End Role="CancellationPolicies" Type="Self.CancellationPolicy" Multiplicity="1" />
+          <End Role="ItemPrices" Type="Self.ItemPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CancellationPolicies">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPrices">
+              <PropertyRef Name="CancellationPolicyID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceAmenities_Places">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemAmenities" Type="Self.ItemAmenity" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAmenities">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlaceSightseeingLocations_Places">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemAttractions" Type="Self.ItemAttraction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemAttractions">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePictures_Places">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemPictures" Type="Self.ItemPicture" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPictures">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PlacePrices_Places">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemPrices" Type="Self.ItemPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemPrices">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Items">
+          <End Role="Items" Type="Self.Item" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Items">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="ItemID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Places_PlaceTypes">
+          <End Role="ItemTypes" Type="Self.ItemType" Multiplicity="1" />
+          <End Role="Items" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ItemTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="ItemTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Places_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Items" Type="Self.Item" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Items">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Scores">
+          <End Role="Scores" Type="Self.Score" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Scores">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="ScoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ItemScores_Users">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="ItemScores" Type="Self.ItemScore" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ItemScores">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_TransactionTypes">
+          <End Role="TransactionTypes" Type="Self.TransactionType" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="TransactionTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_UserTypes">
+          <End Role="UserTypes" Type="Self.UserType" Multiplicity="1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserTypes">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="UserTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="SS2Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Amenities" EntityType="Self.Amenity" />
+          <EntitySet Name="Areas" EntityType="Self.Area" />
+          <EntitySet Name="Attractions" EntityType="Self.Attraction" />
+          <EntitySet Name="BookingDetails" EntityType="Self.BookingDetail" />
+          <EntitySet Name="Bookings" EntityType="Self.Booking" />
+          <EntitySet Name="CancellationPolicies" EntityType="Self.CancellationPolicy" />
+          <EntitySet Name="CancellationRefundFees" EntityType="Self.CancellationRefundFee" />
+          <EntitySet Name="Coupons" EntityType="Self.Coupon" />
+          <EntitySet Name="DimDates" EntityType="Self.DimDate" />
+          <EntitySet Name="ItemAmenities" EntityType="Self.ItemAmenity" />
+          <EntitySet Name="ItemAttractions" EntityType="Self.ItemAttraction" />
+          <EntitySet Name="ItemPictures" EntityType="Self.ItemPicture" />
+          <EntitySet Name="ItemPrices" EntityType="Self.ItemPrice" />
+          <EntitySet Name="Items" EntityType="Self.Item" />
+          <EntitySet Name="ItemScores" EntityType="Self.ItemScore" />
+          <EntitySet Name="ItemTypes" EntityType="Self.ItemType" />
+          <EntitySet Name="Scores" EntityType="Self.Score" />
+          <EntitySet Name="Transactions" EntityType="Self.Transaction" />
+          <EntitySet Name="TransactionTypes" EntityType="Self.TransactionType" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="UserTypes" EntityType="Self.UserType" />
+          <AssociationSet Name="FK_PlaceAmenities_Amenities" Association="Self.FK_PlaceAmenities_Amenities">
+            <End Role="Amenities" EntitySet="Amenities" />
+            <End Role="ItemAmenities" EntitySet="ItemAmenities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Attractions_Areas" Association="Self.FK_Attractions_Areas">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Attractions" EntitySet="Attractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Items_Areas" Association="Self.FK_Items_Areas">
+            <End Role="Areas" EntitySet="Areas" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceSightseeingLocations_SightseeingLocations" Association="Self.FK_PlaceSightseeingLocations_SightseeingLocations">
+            <End Role="Attractions" EntitySet="Attractions" />
+            <End Role="ItemAttractions" EntitySet="ItemAttractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetails_Bookings" Association="Self.FK_BookingDetails_Bookings">
+            <End Role="Bookings" EntitySet="Bookings" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BookingDetails_PlacePrices" Association="Self.FK_BookingDetails_PlacePrices">
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+            <End Role="BookingDetails" EntitySet="BookingDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Coupons" Association="Self.FK_Bookings_Coupons">
+            <End Role="Coupons" EntitySet="Coupons" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Transactions" Association="Self.FK_Bookings_Transactions">
+            <End Role="Transactions" EntitySet="Transactions" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bookings_Users" Association="Self.FK_Bookings_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CancellationRefundFees_CancellationPolicies" Association="Self.FK_CancellationRefundFees_CancellationPolicies">
+            <End Role="CancellationPolicies" EntitySet="CancellationPolicies" />
+            <End Role="CancellationRefundFees" EntitySet="CancellationRefundFees" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePrices_CancellationPolicies" Association="Self.FK_PlacePrices_CancellationPolicies">
+            <End Role="CancellationPolicies" EntitySet="CancellationPolicies" />
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceAmenities_Places" Association="Self.FK_PlaceAmenities_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemAmenities" EntitySet="ItemAmenities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlaceSightseeingLocations_Places" Association="Self.FK_PlaceSightseeingLocations_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemAttractions" EntitySet="ItemAttractions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePictures_Places" Association="Self.FK_PlacePictures_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPictures" EntitySet="ItemPictures" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PlacePrices_Places" Association="Self.FK_PlacePrices_Places">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemPrices" EntitySet="ItemPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Items" Association="Self.FK_ItemScores_Items">
+            <End Role="Items" EntitySet="Items" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Places_PlaceTypes" Association="Self.FK_Places_PlaceTypes">
+            <End Role="ItemTypes" EntitySet="ItemTypes" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Places_Users" Association="Self.FK_Places_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Items" EntitySet="Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Scores" Association="Self.FK_ItemScores_Scores">
+            <End Role="Scores" EntitySet="Scores" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ItemScores_Users" Association="Self.FK_ItemScores_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ItemScores" EntitySet="ItemScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_TransactionTypes" Association="Self.FK_Transactions_TransactionTypes">
+            <End Role="TransactionTypes" EntitySet="TransactionTypes" />
+            <End Role="Transactions" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_UserTypes" Association="Self.FK_Users_UserTypes">
+            <End Role="UserTypes" EntitySet="UserTypes" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="SS2ModelStoreContainer" CdmEntityContainer="SS2Entities">
+          <EntitySetMapping Name="Amenities">
+            <EntityTypeMapping TypeName="SS2Model.Amenity">
+              <MappingFragment StoreEntitySet="Amenities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IconName" ColumnName="IconName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Areas">
+            <EntityTypeMapping TypeName="SS2Model.Area">
+              <MappingFragment StoreEntitySet="Areas">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Attractions">
+            <EntityTypeMapping TypeName="SS2Model.Attraction">
+              <MappingFragment StoreEntitySet="Attractions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BookingDetails">
+            <EntityTypeMapping TypeName="SS2Model.BookingDetail">
+              <MappingFragment StoreEntitySet="BookingDetails">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="BookingID" ColumnName="BookingID" />
+                <ScalarProperty Name="ItemPriceID" ColumnName="ItemPriceID" />
+                <ScalarProperty Name="isRefund" ColumnName="isRefund" />
+                <ScalarProperty Name="RefundDate" ColumnName="RefundDate" />
+                <ScalarProperty Name="RefundCancellationPoliciyID" ColumnName="RefundCancellationPoliciyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="SS2Model.Booking">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="BookingDate" ColumnName="BookingDate" />
+                <ScalarProperty Name="CouponID" ColumnName="CouponID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="AmountPaid" ColumnName="AmountPaid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CancellationPolicies">
+            <EntityTypeMapping TypeName="SS2Model.CancellationPolicy">
+              <MappingFragment StoreEntitySet="CancellationPolicies">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Commission" ColumnName="Commission" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CancellationRefundFees">
+            <EntityTypeMapping TypeName="SS2Model.CancellationRefundFee">
+              <MappingFragment StoreEntitySet="CancellationRefundFees">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="CancellationPolicyID" ColumnName="CancellationPolicyID" />
+                <ScalarProperty Name="DaysLeft" ColumnName="DaysLeft" />
+                <ScalarProperty Name="PenaltyPercentage" ColumnName="PenaltyPercentage" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Coupons">
+            <EntityTypeMapping TypeName="SS2Model.Coupon">
+              <MappingFragment StoreEntitySet="Coupons">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="CouponCode" ColumnName="CouponCode" />
+                <ScalarProperty Name="DiscountPercent" ColumnName="DiscountPercent" />
+                <ScalarProperty Name="MaximimDiscountAmount" ColumnName="MaximimDiscountAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DimDates">
+            <EntityTypeMapping TypeName="SS2Model.DimDate">
+              <MappingFragment StoreEntitySet="DimDates">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Quarter" ColumnName="Quarter" />
+                <ScalarProperty Name="Month" ColumnName="Month" />
+                <ScalarProperty Name="MonthName" ColumnName="MonthName" />
+                <ScalarProperty Name="DayOfMonth" ColumnName="DayOfMonth" />
+                <ScalarProperty Name="DayOfWeek" ColumnName="DayOfWeek" />
+                <ScalarProperty Name="DayName" ColumnName="DayName" />
+                <ScalarProperty Name="isHoliday" ColumnName="isHoliday" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemAmenities">
+            <EntityTypeMapping TypeName="SS2Model.ItemAmenity">
+              <MappingFragment StoreEntitySet="ItemAmenities">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="AmenityID" ColumnName="AmenityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemAttractions">
+            <EntityTypeMapping TypeName="SS2Model.ItemAttraction">
+              <MappingFragment StoreEntitySet="ItemAttractions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="AttractionID" ColumnName="AttractionID" />
+                <ScalarProperty Name="Distance" ColumnName="Distance" />
+                <ScalarProperty Name="DurationOnFoot" ColumnName="DurationOnFoot" />
+                <ScalarProperty Name="DurationByCar" ColumnName="DurationByCar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPictures">
+            <EntityTypeMapping TypeName="SS2Model.ItemPicture">
+              <MappingFragment StoreEntitySet="ItemPictures">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="PictureFileName" ColumnName="PictureFileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemPrices">
+            <EntityTypeMapping TypeName="SS2Model.ItemPrice">
+              <MappingFragment StoreEntitySet="ItemPrices">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="CancellationPolicyID" ColumnName="CancellationPolicyID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="SS2Model.Item">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ItemTypeID" ColumnName="ItemTypeID" />
+                <ScalarProperty Name="AreaID" ColumnName="AreaID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Capacity" ColumnName="Capacity" />
+                <ScalarProperty Name="NumberOfBeds" ColumnName="NumberOfBeds" />
+                <ScalarProperty Name="NumberOfBedrooms" ColumnName="NumberOfBedrooms" />
+                <ScalarProperty Name="NumberOfBathrooms" ColumnName="NumberOfBathrooms" />
+                <ScalarProperty Name="ExactAddress" ColumnName="ExactAddress" />
+                <ScalarProperty Name="ApproximateAddress" ColumnName="ApproximateAddress" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="HostRules" ColumnName="HostRules" />
+                <ScalarProperty Name="MinimumNights" ColumnName="MinimumNights" />
+                <ScalarProperty Name="MaximumNights" ColumnName="MaximumNights" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemScores">
+            <EntityTypeMapping TypeName="SS2Model.ItemScore">
+              <MappingFragment StoreEntitySet="ItemScores">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="ItemID" ColumnName="ItemID" />
+                <ScalarProperty Name="ScoreID" ColumnName="ScoreID" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemTypes">
+            <EntityTypeMapping TypeName="SS2Model.ItemType">
+              <MappingFragment StoreEntitySet="ItemTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Scores">
+            <EntityTypeMapping TypeName="SS2Model.Score">
+              <MappingFragment StoreEntitySet="Scores">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="SS2Model.Transaction">
+              <MappingFragment StoreEntitySet="Transactions">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="TransactionTypeID" ColumnName="TransactionTypeID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="TransactionDate" ColumnName="TransactionDate" />
+                <ScalarProperty Name="GatewayReturnID" ColumnName="GatewayReturnID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionTypes">
+            <EntityTypeMapping TypeName="SS2Model.TransactionType">
+              <MappingFragment StoreEntitySet="TransactionTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="SS2Model.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="UserTypeID" ColumnName="UserTypeID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+                <ScalarProperty Name="FamilyCount" ColumnName="FamilyCount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="SS2Model.UserType">
+              <MappingFragment StoreEntitySet="UserTypes">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

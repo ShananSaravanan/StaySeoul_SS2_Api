@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="071bcccc0ea3471a87114c1ace89acfe" Name="Diagram1">
+        <EntityTypeShape EntityType="SS2Model.Amenity" Width="1.5" PointX="3" PointY="16.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Area" Width="1.5" PointX="0.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Attraction" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.BookingDetail" Width="1.5" PointX="10.5" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Booking" Width="1.5" PointX="8.25" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.CancellationPolicy" Width="1.5" PointX="6" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.CancellationRefundFee" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Coupon" Width="1.5" PointX="6" PointY="19.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.DimDate" Width="1.5" PointX="7.75" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemAmenity" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemAttraction" Width="1.5" PointX="5.25" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemPicture" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemPrice" Width="1.5" PointX="8.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Item" Width="1.5" PointX="3" PointY="3.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemScore" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.ItemType" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Score" Width="1.5" PointX="6" PointY="13.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.Transaction" Width="1.5" PointX="6" PointY="22.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.TransactionType" Width="1.5" PointX="3.75" PointY="22.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.User" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SS2Model.UserType" Width="1.5" PointX="1.5" PointY="13.5" IsExpanded="true" />
+        <AssociationConnector Association="SS2Model.FK_PlaceAmenities_Amenities" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Attractions_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Items_Areas" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlaceSightseeingLocations_SightseeingLocations" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_BookingDetails_Bookings" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_BookingDetails_PlacePrices" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Bookings_Coupons" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Bookings_Transactions" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Bookings_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_CancellationRefundFees_CancellationPolicies" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlacePrices_CancellationPolicies" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlaceAmenities_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlaceSightseeingLocations_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlacePictures_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_PlacePrices_Places" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_ItemScores_Items" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Places_PlaceTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Places_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_ItemScores_Scores" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_ItemScores_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Transactions_TransactionTypes" ManuallyRouted="false" />
+        <AssociationConnector Association="SS2Model.FK_Users_UserTypes" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
